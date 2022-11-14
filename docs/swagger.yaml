@@ -1,0 +1,71 @@
+definitions:
+  model.Author:
+    properties:
+      author_fio:
+        description: |-
+          Author Fio
+          required: true
+        type: string
+      author_id:
+        description: |-
+          Author ID of author
+          required: true
+        type: integer
+      author_pseudonym:
+        description: |-
+          Author AuthorPseudonym
+          required: false
+        type: string
+      author_specialization:
+        description: |-
+          Author AuthorSpecialization
+          required: false
+        type: string
+    type: object
+host: rest-api-library
+info:
+  contact:
+    email: ArsanSa@halykbank.kz
+    name: Sagindykov Arsan
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /authors:
+    get:
+      consumes:
+      - application/json
+      description: get all authors
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Author'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Author'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Author'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Author'
+      summary: Get author
+      tags:
+      - accounts
+swagger: "2.0"
