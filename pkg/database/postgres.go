@@ -1,7 +1,7 @@
 package database
 
 import (
-	"RestApiLibrary/internal/config"
+	"RestApiLibrary/pkg/config"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"

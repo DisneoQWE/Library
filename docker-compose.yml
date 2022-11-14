@@ -16,4 +16,18 @@ services:
     ports:
       - "5432:5432"
 
-    
+  web:
+    container_name: web_container
+    image: app
+    depends_on:
+      - database
+    ports:
+      - "1234:1234"
+    environment:
+      - DB_NAME=postgres
+      - DB_PASS=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - PORT=1234
+      - DB_HOST=172.30.209.41
+    restart: unless-stopped

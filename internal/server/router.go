@@ -1,9 +1,5 @@
 package server
 
-import (
-	swagger "github.com/arsmn/fiber-swagger/v2"
-)
-
 func (s *Server) NewRouter() {
 	//Автор
 	s.app.Get("/authors", s.GetAllAuthor)
@@ -27,6 +23,4 @@ func (s *Server) NewRouter() {
 	s.app.Get("/authors/:id/books", s.GetAuthorListIdBook)
 	s.app.Get("/members/:id/books", s.GetMemberListIdBooks)
 	s.app.Get("/*", s.AllOtherRequests)
-	//swagger oauth
-	s.app.Get("/swagger/*", swagger.HandlerDefault)
 }

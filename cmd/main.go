@@ -1,8 +1,9 @@
 package main
 
 import (
-	"RestApiLibrary/internal/config"
+	_ "RestApiLibrary/docs"
 	server "RestApiLibrary/internal/server"
+	"RestApiLibrary/pkg/config"
 	"RestApiLibrary/pkg/database"
 	"log"
 )
@@ -12,22 +13,23 @@ import (
 // @description    This is a sample server celler server.
 // @termsOfService http://swagger.io/terms/
 
-// @contact.name Sagindykov Arsan
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
+// @contact.name  Sagindykov Arsan
+// @contact.email ArsanSa@halykbank.kz
 
 // @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @license.url  http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:3000
-// @BasePath /
-// @schemes http
+// @host rest-api-library
 func main() {
-	c := new(config.Config)
 	c, err := config.LoadConfig()
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
 	db, err := database.ConnectToPostgresDB(c)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err.Error())
+		return
 	}
 
 	server := server.NewServer(db)

@@ -1,17 +1,16 @@
 package server
 
 import (
-	"RestApiLibrary/internal/config"
+	_ "RestApiLibrary/docs"
 	"RestApiLibrary/internal/model"
 	store2 "RestApiLibrary/internal/store"
+	"RestApiLibrary/pkg/config"
+	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
 	"log"
 )
 
-// @title   Rest Api
-// @version 1.0
-// @description This is Rest Api App
 type Store interface {
 	//Авторы
 	GetAllAuthors() ([]model.Author, error)
@@ -53,9 +52,14 @@ func NewServer(db *sqlx.DB) *Server {
 
 // Start Server
 func (s *Server) ServerRun(c *config.Config) {
+	s.app.Get("/swagger/*", swagger.HandlerDefault)
+	s.app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
+		URL:         "http://example.com/doc.json",
+		DeepLinking: false,
+	}))
 
 	s.NewRouter()
-	err := s.app.Listen(c.Port)
+	err := s.app.Listen(":" + c.Port)
 	if err != nil {
 		log.Fatal(err)
 	}
